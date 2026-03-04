@@ -19,13 +19,15 @@
   },
   "homepage": "https://github.com/t-kkn/ea-ecommerce-platform#readme",
   "dependencies": {
+    "@prisma/client": "^4.16.2",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^4.22.1",
     "pg": "^8.19.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "prisma": "^4.16.2"
   },
   "type": "module"
 }
