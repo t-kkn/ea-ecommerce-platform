@@ -3,6 +3,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { pool } from "./db.js";
 import licenseRoutes from "./routes/licenseRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
+
+
 
 dotenv.config();
 
@@ -10,8 +14,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-
 app.use("/api", licenseRoutes);
+app.use("/api", productRoutes);
+app.use("/api", orderRoutes);
 
 app.get("/health", (_req, res) => {
   res.status(200).json({ ok: true });

@@ -11,16 +11,25 @@ model User {
   id        String   @id @default(uuid())
   email     String   @unique
   password  String
-  licenses  License[]
   createdAt DateTime @default(now())
+
+  licenses License[]
+  orders   Order[]
 }
 
 model Product {
-  id        String   @id @default(uuid())
-  name      String
-  price     Float
-  type      String
-  licenses  License[]
+  id          String   @id @default(uuid())
+  name        String
+  slug        String   @unique
+  description String
+  price       Float
+  type        String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  licenses License[]
+  orders   Order[]
 }
 
 model License {
@@ -34,4 +43,16 @@ model License {
   expiryDate  DateTime
   status      String   @default("ACTIVE")
   createdAt   DateTime @default(now())
+}
+
+model Order {
+  id        String   @id @default(uuid())
+  userId    String
+  productId String
+  amount    Float
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
 }
