@@ -21,3 +21,26 @@ export const createOrder = async (userId, productId) => {
 
   return order;
 };
+
+export const getOrderHistory = async (userId) => {
+
+  const orders = await prisma.order.findMany({
+    where: {
+      userId: userId
+    },
+    include: {
+      product: {
+        select: {
+          name: true,
+          slug: true,
+          price: true
+        }
+      }
+    },
+    orderBy: {
+      createdAt: "desc"
+    }
+  });
+
+  return orders;
+};

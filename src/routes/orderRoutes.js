@@ -1,5 +1,6 @@
 import express from "express";
 import { createOrder } from "../services/orderService.js";
+import { getOrderHistory } from "../services/orderService.js";
 
 const router = express.Router();
 
@@ -31,6 +32,31 @@ router.post("/orders/checkout", async (req, res) => {
     });
 
   }
+});
+
+/**
+ * GET /api/orders/history/:userId
+ */
+router.get("/orders/history/:userId", async (req, res) => {
+
+  try {
+
+    const { userId } = req.params;
+
+    const orders = await getOrderHistory(userId);
+
+    res.json({
+      orders
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      error: "Failed to fetch order history"
+    });
+
+  }
+
 });
 
 export default router;
