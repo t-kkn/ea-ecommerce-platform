@@ -1,5 +1,6 @@
 import prisma from "../config/prisma.js";
 
+// Get all active products from the database
 export const getAllProducts = async () => {
   return await prisma.product.findMany({
     where: { isActive: true },
@@ -14,6 +15,7 @@ export const getAllProducts = async () => {
   });
 };
 
+// Get a single product from the database using its slug
 export const getProductBySlug = async (slug) => {
   return await prisma.product.findUnique({
     where: { slug },

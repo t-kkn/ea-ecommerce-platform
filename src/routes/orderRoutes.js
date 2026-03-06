@@ -4,12 +4,11 @@ import { getOrderHistory } from "../services/orderService.js";
 
 const router = express.Router();
 
-/**
- * POST /api/orders/checkout
- */
+// Create order (checkout)
 router.post("/orders/checkout", async (req, res) => {
   try {
 
+    // Get userId and productId from request body
     const { userId, productId } = req.body;
 
     if (!userId || !productId) {
@@ -18,6 +17,7 @@ router.post("/orders/checkout", async (req, res) => {
       });
     }
 
+    // Create a new order in the database
     const order = await createOrder(userId, productId);
 
     res.json({
@@ -34,15 +34,15 @@ router.post("/orders/checkout", async (req, res) => {
   }
 });
 
-/**
- * GET /api/orders/history/:userId
- */
+// Get order history for a specific user
 router.get("/orders/history/:userId", async (req, res) => {
 
   try {
 
+    // Extract userId from URL parameters
     const { userId } = req.params;
 
+    // Fetch order history from the database
     const orders = await getOrderHistory(userId);
 
     res.json({

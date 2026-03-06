@@ -6,10 +6,7 @@ import {
 
 const router = express.Router();
 
-/**
- * GET /api/products
- * Product catalog
- */
+// API endpoint to get all products
 router.get("/products", async (req, res) => {
     try {
       const products = await getAllProducts();
@@ -19,12 +16,10 @@ router.get("/products", async (req, res) => {
     }
   });
 
-  /**
- * GET /api/products/:slug
- * Product detail
- */
-router.get("/products/:slug", async (req, res) => {
+  // Get product details by slug
+  router.get("/products/:slug", async (req, res) => {
     try {
+      // Fetch product from database using slug parameter
       const product = await getProductBySlug(req.params.slug);
   
       if (!product) {
