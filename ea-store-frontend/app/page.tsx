@@ -19,8 +19,8 @@ export default async function HomePage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="bg-gray-100 py-20 text-center">
-        <h1 className="text-4xl font-bold">
+      <section className="bg-gray-300 py-20 text-center">
+        <h1 className="text-4xl font-bold text-red-600">
           Professional Forex Expert Advisors
         </h1>
 
