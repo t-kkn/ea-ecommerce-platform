@@ -1,6 +1,7 @@
 import express from "express";
 import { createOrder } from "../services/orderService.js";
 import { getOrderHistory } from "../services/orderService.js";
+import authMiddleware from "../middleware/authMiddleware.js"
 
 const router = express.Router();
 
@@ -35,7 +36,7 @@ router.post("/orders/checkout", async (req, res) => {
 });
 
 // Get order history for a specific user
-router.get("/orders/history/:userId", async (req, res) => {
+router.get("/orders/history/:userId", authMiddleware, async (req, res) => {
 
   try {
 

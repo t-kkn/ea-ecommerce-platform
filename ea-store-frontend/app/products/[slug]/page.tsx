@@ -30,7 +30,7 @@ export default async function ProductPage({
 
   return (
     <div>
-      <Navbar />
+      <Navbar></Navbar>
 
       <div className="max-w-5xl mx-auto py-16 px-4 grid md:grid-cols-2 gap-10">
         <div>
@@ -40,11 +40,12 @@ export default async function ProductPage({
 
           <p className="text-2xl font-semibold mt-6">${product.price}</p>
 
-          <a
-          href={`/checkout?productId=${product.id}`}
-          className="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded">
-            Buy Now
+          <button>
+            <a href={`/checkout?productId=${product.id}`}
+            className="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded">
+              Buy Now
             </a>
+          </button>
         </div>
       </div>
     </div>

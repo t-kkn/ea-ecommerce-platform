@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
+import Navbar from "../../components/Navbar"
 
 async function createOrder(productId: string) {
 
@@ -57,6 +58,8 @@ export default function CheckoutPage() {
     }
   
     return (
+      <div>
+        <Navbar></Navbar>
   
       <div className="max-w-4xl mx-auto py-20">
   
@@ -87,6 +90,7 @@ export default function CheckoutPage() {
   
         </div>
   
+      </div>
       </div>
     )
   }

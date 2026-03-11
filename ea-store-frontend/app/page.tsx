@@ -16,7 +16,7 @@ export default async function HomePage() {
   return (
     <div>
 
-      <Navbar />
+      <Navbar></Navbar>
 
       {/* Hero Section */}
       <section className="bg-gray-300 py-20 text-center">

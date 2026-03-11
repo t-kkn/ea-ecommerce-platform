@@ -5,6 +5,7 @@ import { pool } from "./db.js";
 import licenseRoutes from "./routes/licenseRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import authRoutes from "./routes/authRoutes.js"
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use("/api", licenseRoutes);
 app.use("/api", productRoutes);
 app.use("/api", orderRoutes);
+app.use("/api", authRoutes)
 
 app.get("/health", (_req, res) => {
   res.status(200).json({ ok: true });

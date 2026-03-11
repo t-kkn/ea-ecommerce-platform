@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Navbar from "../../../components/Navbar"
 
 export default function OrdersPage() {
 
@@ -25,6 +26,8 @@ export default function OrdersPage() {
     }, [])
   
     return (
+      <div>
+        <Navbar></Navbar>
   
       <div className="max-w-5xl mx-auto py-16">
   
@@ -80,6 +83,7 @@ export default function OrdersPage() {
   
         </table>
   
+      </div>
       </div>
     )
   }
