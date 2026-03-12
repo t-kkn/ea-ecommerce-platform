@@ -20,7 +20,7 @@ export default async function HomePage() {
 
       {/* Hero Section */}
       <section className="bg-gray-300 py-20 text-center">
-        <h1 className="text-4xl font-bold text-red-600">
+        <h1 className="text-4xl font-bold text-green-700">
           Professional Forex Expert Advisors
         </h1>
 

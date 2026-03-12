@@ -3,25 +3,22 @@
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import Navbar from "../../components/Navbar"
+import { apiFetch } from "../lib/api"
 
 async function createOrder(productId: string) {
 
-    const response = await fetch(
-      "http://localhost:5001/api/orders/checkout",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          userId: "demo-user-id",
-          productId: productId
-        })
-      }
-    )
+  const token = localStorage.getItem("token");
+  
+  const response = await apiFetch("http://localhost:5001/api/orders/checkout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ productId }),
+    });
   
     const data = await response.json()
-  
     alert("Order created: " + data.order.id)
   }
 

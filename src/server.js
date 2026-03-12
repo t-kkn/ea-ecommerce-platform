@@ -6,6 +6,7 @@ import licenseRoutes from "./routes/licenseRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import authRoutes from "./routes/authRoutes.js"
+import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use("/api", licenseRoutes);
 app.use("/api", productRoutes);
 app.use("/api", orderRoutes);
 app.use("/api", authRoutes)
+app.use("/api", userRoutes);
 
 app.get("/health", (_req, res) => {
   res.status(200).json({ ok: true });

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Navbar from "../../components/Navbar"
 
@@ -10,13 +10,23 @@ export default function LoginPage() {
   
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    useEffect(() => {
+
+      const token = localStorage.getItem("token")
+    
+      if (token) {
+        router.push("/dashboard/orders")
+      }
+    
+    }, [])
   
     async function handleLogin(e: any) {
   
       e.preventDefault()
   
       const res = await fetch(
-        "http://localhost:5000/api/auth/login",
+        "http://localhost:5001/api/auth/login",
         {
           method: "POST",
           headers: {
@@ -62,7 +72,7 @@ export default function LoginPage() {
           <input
             type="email"
             placeholder="Email"
-            className="w-full border p-3 mb-4"
+            className="w-full border p-3 mb-4 text-black"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -70,7 +80,7 @@ export default function LoginPage() {
           <input
             type="password"
             placeholder="Password"
-            className="w-full border p-3 mb-4"
+            className="w-full border p-3 mb-4 text-black"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />

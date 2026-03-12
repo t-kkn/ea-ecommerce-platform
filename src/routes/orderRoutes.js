@@ -6,11 +6,12 @@ import authMiddleware from "../middleware/authMiddleware.js"
 const router = express.Router();
 
 // Create order (checkout)
-router.post("/orders/checkout", async (req, res) => {
+router.post("/orders/checkout", authMiddleware, async (req, res) => {
   try {
 
     // Get userId and productId from request body
-    const { userId, productId } = req.body;
+    const userId = req.user.id; // from logged-in token
+    const { productId } = req.body;
 
     if (!userId || !productId) {
       return res.status(400).json({
