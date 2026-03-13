@@ -1,3 +1,4 @@
+// Define a type for a product object
 type Product = {
     id: string
     name: string

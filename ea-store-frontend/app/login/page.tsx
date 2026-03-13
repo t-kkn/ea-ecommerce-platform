@@ -18,19 +18,22 @@ export default function LoginPage() {
       if (token) {
         router.push("/dashboard/orders")
       }
-    
+
+      // Run this effect only once when the component loads
     }, [])
   
+    // Function to handle login form submission
     async function handleLogin(e: any) {
   
-      e.preventDefault()
+      e.preventDefault() // Prevent page refresh when form submits
   
+      // Send login request to backend API
       const res = await fetch(
         "http://localhost:5001/api/auth/login",
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json" // Send JSON data
           },
           body: JSON.stringify({
             email,
@@ -43,14 +46,14 @@ export default function LoginPage() {
   
       if (res.ok) {
   
+        // Save JWT token in localStorage
         localStorage.setItem("token", data.token)
   
+        // Redirect user to dashboard
         router.push("/dashboard/orders")
   
       } else {
-  
         alert(data.error)
-  
       }
   
     }

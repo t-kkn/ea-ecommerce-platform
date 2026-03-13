@@ -1,9 +1,11 @@
 import { notFound } from "next/navigation";
 import Navbar from "../../../components/Navbar";
+import { apiFetch } from "../../lib/api"
 
+// Function to get product data using the product slug
 async function getProduct(slug: string) {
   const res = await fetch(`http://localhost:5001/api/products/${slug}`, {
-    cache: "no-store",
+    cache: "no-store", // always fetch fresh data (no caching)
   });
 
   if (res.status === 404) {

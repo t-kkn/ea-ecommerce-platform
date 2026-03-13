@@ -10,26 +10,31 @@ export default function ProfilePage() {
 
   useEffect(() => {
 
+    // Function to get user profile from backend
     async function fetchProfile() {
 
       const token = getToken()
 
+      // Send request to profile API with token
       const res = await fetch(
         "http://localhost:5001/api/users/profile",
         {
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}` // attach token for authentication
           }
         }
       )
 
       const data = await res.json()
 
+      // Save user data to state
       setUser(data.user)
     }
 
+    // Call the function when component loads
     fetchProfile()
 
+    // empty dependency = run once on mount
   }, [])
 
   if (!user) {

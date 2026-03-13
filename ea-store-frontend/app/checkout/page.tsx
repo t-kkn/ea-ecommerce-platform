@@ -5,17 +5,19 @@ import { useEffect, useState } from "react"
 import Navbar from "../../components/Navbar"
 import { apiFetch } from "../lib/api"
 
+// Create a new order for a selected product
 async function createOrder(productId: string) {
 
+  // Get JWT token from browser storage
   const token = localStorage.getItem("token");
   
   const response = await apiFetch("http://localhost:5001/api/orders/checkout", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`, // Send JWT for authentication
     },
-    body: JSON.stringify({ productId }),
+    body: JSON.stringify({ productId }), // Send product ID in request body
     });
   
     const data = await response.json()
@@ -24,30 +26,37 @@ async function createOrder(productId: string) {
 
 export default function CheckoutPage() {
 
-    const searchParams = useSearchParams()
-    const productId = searchParams.get("productId")
+  // Get URL query parameters  
+  const searchParams = useSearchParams()
+  const productId = searchParams.get("productId")
   
-    const [product, setProduct] = useState<any>(null)
+  // Store product data in state
+  const [product, setProduct] = useState<any>(null)
   
     useEffect(() => {
   
+      // Fetch product data from the API
       async function fetchProduct() {
   
-        const res = await fetch(
+        const res = await apiFetch(
           `http://localhost:5001/api/products`
         )
   
         const products = await res.json()
   
+        // Find the product that matches the productId from the URL
         const selectedProduct = products.find(
           (p: any) => p.id === productId
         )
   
+        // Save the selected product to state
         setProduct(selectedProduct)
       }
   
+      // Run the fetch function
       fetchProduct()
   
+      // Re-run effect if productId changes
     }, [productId])
   
     if (!product) {

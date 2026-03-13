@@ -13,14 +13,16 @@ export default function RegisterPage() {
   
     async function handleRegister(e: any) {
   
+      // Prevent page reload when form is submitted
       e.preventDefault()
   
+      // Send POST request to the register API
       const res = await fetch(
         "http://localhost:5001/api/auth/register",
         {
-          method: "POST",
+          method: "POST", // HTTP method
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json" // Tell server we send JSON
           },
           body: JSON.stringify({
             email,

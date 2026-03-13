@@ -7,12 +7,15 @@ import { getUserIdFromToken } from "../../lib/auth"
 
 export default function OrdersPage() {
 
-    const [orders, setOrders] = useState<any[]>([])
-    const [error, setError] = useState("")
+  // State to store the list of orders  
+  const [orders, setOrders] = useState<any[]>([])
+  const [error, setError] = useState("")
   
     useEffect(() => {
   
+      // Function to fetch order history from the API
       async function fetchOrders() {
+
         const userId = getUserIdFromToken()
 
         if (!userId) {
@@ -20,6 +23,7 @@ export default function OrdersPage() {
           return
         }
 
+        // Send request to backend to get order history
         const res = await apiFetch(
           `http://localhost:5001/api/orders/history/${userId}`
         )
@@ -32,9 +36,11 @@ export default function OrdersPage() {
   
         const data = await res.json()
   
+        // Save orders to state
         setOrders(data.orders)
       }
   
+      // Call the function when component loads
       fetchOrders()
   
     }, [])
