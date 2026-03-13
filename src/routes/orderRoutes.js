@@ -5,12 +5,12 @@ import authMiddleware from "../middleware/authMiddleware.js"
 
 const router = express.Router();
 
-// Create order (checkout)
+// Create a checkout order
 router.post("/orders/checkout", authMiddleware, async (req, res) => {
-  try {
 
-    // Get userId and productId from request body
-    const userId = req.user.id; // from logged-in token
+  try {
+    // Get user ID from authenticated token
+    const userId = req.user.id;
     const { productId } = req.body;
 
     if (!userId || !productId) {
@@ -28,12 +28,11 @@ router.post("/orders/checkout", authMiddleware, async (req, res) => {
     });
 
   } catch (error) {
-
     res.status(500).json({
       error: error.message
     });
-
   }
+
 });
 
 // Get order history for a specific user
@@ -41,10 +40,10 @@ router.get("/orders/history/:userId", authMiddleware, async (req, res) => {
 
   try {
 
-    // Extract userId from URL parameters
+    // Get userId from URL parameters
     const { userId } = req.params;
 
-    // Fetch order history from the database
+    // Fetch order history from database/service
     const orders = await getOrderHistory(userId);
 
     res.json({
@@ -52,11 +51,9 @@ router.get("/orders/history/:userId", authMiddleware, async (req, res) => {
     });
 
   } catch (error) {
-
     res.status(500).json({
       error: "Failed to fetch order history"
     });
-
   }
 
 });

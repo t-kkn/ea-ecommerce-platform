@@ -3,11 +3,12 @@ import prisma from "../config/prisma.js";
 
 const router = express.Router();
 
-// Verify EA license from MT account
+// Endpoint to verify a license key
 router.post("/verify-license", async (req, res) => {
-  // Get license key and MT account from request body
+  
   const { licenseKey, mtAccount } = req.body;
 
+  // Find license in database by licenseKey
   const license = await prisma.license.findUnique({
     where: { licenseKey },
   });
