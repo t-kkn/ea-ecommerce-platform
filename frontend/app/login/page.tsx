@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import Navbar from "../../components/Navbar"
+import Navbar from "@/components/ui/Navbar"
 
 export default function LoginPage() {
 
@@ -20,7 +20,7 @@ export default function LoginPage() {
       }
 
       // Run this effect only once when the component loads
-    }, [])
+    }, [router])
   
     // Function to handle login form submission
     async function handleLogin(e: any) {

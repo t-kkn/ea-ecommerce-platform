@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { getToken } from "../../lib/auth"
-import Navbar from "../../../components/Navbar"
+import { getToken } from "@/lib/auth"
+import Navbar from "@/components/ui/Navbar"
 
 export default function ProfilePage() {
 

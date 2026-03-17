@@ -1,4 +1,4 @@
-import prisma from "../config/prisma.js";
+import prisma from "../lib/prisma.js";
 
 // Get all active products from the database
 export const getAllProducts = async () => {

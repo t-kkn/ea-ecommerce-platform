@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { pool } from "./db.js";
+import { pool } from "./lib/db.js";
 import licenseRoutes from "./routes/licenseRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";

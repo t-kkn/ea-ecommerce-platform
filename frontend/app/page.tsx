@@ -1,5 +1,5 @@
-import Navbar from "../components/Navbar"
-import ProductCard from "../components/ProductCard"
+import Navbar from "@/components/ui/Navbar";
+import ProductCard from "@/components/ui/ProductCard";
 
 async function getProducts() {
   const res = await fetch("http://localhost:5001/api/products", {

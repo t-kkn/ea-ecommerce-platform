@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import Navbar from "../../../components/Navbar";
-import { apiFetch } from "../../lib/api"
+import Navbar from "@/components/ui/Navbar";
+import { apiFetch } from "@/lib/api"
 
 // Function to get product data using the product slug
 async function getProduct(slug: string) {

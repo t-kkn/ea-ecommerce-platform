@@ -2,8 +2,8 @@
 
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
-import Navbar from "../../components/Navbar"
-import { apiFetch } from "../lib/api"
+import Navbar from "@/components/ui/Navbar"
+import { apiFetch } from "@/lib/api"
 
 // Create a new order for a selected product
 async function createOrder(productId: string) {

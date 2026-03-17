@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
-import { getToken } from "../app/lib/auth"
+import { getToken } from "@/lib/auth"
 
 export default function AuthGuard({ children }: any) {
 
@@ -16,7 +16,7 @@ export default function AuthGuard({ children }: any) {
         router.push("/login")
       }
   
-    }, [])
+    }, [router])
   
     return children
   }
