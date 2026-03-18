@@ -1,17 +1,34 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import Navbar from "@/components/ui/Navbar"
 
 export default function LoginPage() {
 
     const router = useRouter()
+    const searchParams = useSearchParams()
   
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [socialError, setSocialError] = useState("")
 
     useEffect(() => {
+
+      // Get token and error from URL query params
+      const tokenFromQuery = searchParams.get("token")
+      const errorFromQuery = searchParams.get("error")
+
+      // If token exists in URL (after social login)
+      if (tokenFromQuery) {
+        localStorage.setItem("token", tokenFromQuery)
+        router.push("/dashboard/orders")
+        return
+      }
+
+      if (errorFromQuery) {
+        setSocialError("Social login failed. Please try again.")
+      }
 
       const token = localStorage.getItem("token")
     
@@ -19,13 +36,31 @@ export default function LoginPage() {
         router.push("/dashboard/orders")
       }
 
-      // Run this effect only once when the component loads
-    }, [router])
+    }, [router, searchParams])
+
+    function handleGoogleLogin() {
+      // Redirect user to backend Google OAuth endpoint
+      window.location.href = "http://localhost:5001/api/auth/google"
+    }
+
+    function handleFacebookLogin() {
+      // Redirect user to backend Facebook auth endpoint
+      window.location.href = "http://localhost:5001/api/auth/facebook"
+    }
   
     // Function to handle login form submission
     async function handleLogin(e: any) {
   
       e.preventDefault() // Prevent page refresh when form submits
+
+      const normalizedEmail = email.trim().toLowerCase()
+
+      if (!normalizedEmail || !password) {
+        alert("Email and password are required")
+        return
+      }
+
+      try {
   
       // Send login request to backend API
       const res = await fetch(
@@ -36,7 +71,7 @@ export default function LoginPage() {
             "Content-Type": "application/json" // Send JSON data
           },
           body: JSON.stringify({
-            email,
+            email: normalizedEmail,
             password
           })
         }
@@ -55,6 +90,10 @@ export default function LoginPage() {
       } else {
         alert(data.error)
       }
+
+    } catch (_error) {
+      alert("Cannot connect to backend API. Please check if server is running on port 5001.")
+    }
   
     }
   
@@ -71,6 +110,30 @@ export default function LoginPage() {
           <h1 className="text-2xl font-bold mb-6">
             Login
           </h1>
+
+          {socialError ? (
+            <p className="mb-4 text-sm text-red-600">{socialError}</p>
+          ) : null}
+
+          <button
+            type="button"
+            className="w-full bg-red-600 text-white p-3 rounded mb-3"
+            onClick={handleGoogleLogin}
+          >
+            Continue with Google
+          </button>
+
+          <button
+            type="button"
+            className="w-full bg-blue-700 text-white p-3 rounded mb-4"
+            onClick={handleFacebookLogin}
+          >
+            Continue with Facebook
+          </button>
+
+          <div className="text-center text-sm text-gray-500 mb-4">
+            or login with email
+          </div>
   
           <input
             type="email"

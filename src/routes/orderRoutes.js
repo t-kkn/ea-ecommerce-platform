@@ -10,12 +10,12 @@ router.post("/orders/checkout", authMiddleware, async (req, res) => {
 
   try {
     // Get user ID from authenticated token
-    const userId = req.user.id;
+    const userId = req.userId;
     const { productId } = req.body;
 
     if (!userId || !productId) {
       return res.status(400).json({
-        error: "userId and productId required"
+        error: "productId required"
       });
     }
 
@@ -40,8 +40,8 @@ router.get("/orders/history/:userId", authMiddleware, async (req, res) => {
 
   try {
 
-    // Get userId from URL parameters
-    const { userId } = req.params;
+    // Always use the logged-in user's ID from the token
+    const userId = req.userId;
 
     // Fetch order history from database/service
     const orders = await getOrderHistory(userId);

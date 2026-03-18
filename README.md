@@ -12,6 +12,7 @@ The project includes:
 - Browse active products on the home page
 - View product detail pages by slug
 - Register and log in with JWT authentication
+- Log in with Google or Facebook SSO
 - Create orders for the logged-in user
 - View order history in the dashboard
 - View logged-in user profile
@@ -46,6 +47,13 @@ Create a `.env` file in the project root:
 DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=public"
 PORT=5001
 JWT_SECRET="your-secret-key"
+FRONTEND_URL="http://localhost:3000"
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+GOOGLE_CALLBACK_URL="http://localhost:5001/api/auth/google/callback"
+FACEBOOK_APP_ID="your-facebook-app-id"
+FACEBOOK_APP_SECRET="your-facebook-app-secret"
+FACEBOOK_CALLBACK_URL="http://localhost:5001/api/auth/facebook/callback"
 ```
 
 ## Local Setup
@@ -113,6 +121,10 @@ The frontend runs at `http://localhost:3000`.
 - `GET /api/products/:slug`
 - `POST /api/auth/register`
 - `POST /api/auth/login`
+- `GET /api/auth/google`
+- `GET /api/auth/google/callback`
+- `GET /api/auth/facebook`
+- `GET /api/auth/facebook/callback`
 - `GET /api/users/profile`
 - `POST /api/orders/checkout`
 - `GET /api/orders/history/:userId`
@@ -121,6 +133,7 @@ The frontend runs at `http://localhost:3000`.
 Notes:
 - `POST /api/orders/checkout` expects the user to be logged in and send a JWT token.
 - `GET /api/users/profile` expects a valid JWT token.
+- Google and Facebook login redirect back to the frontend login page with a JWT token.
 
 ## Sample Data
 
@@ -144,6 +157,7 @@ From the project root:
 
 ```bash
 npx prisma studio
+npx prisma migrate dev
 ```
 
 From `frontend/`:
@@ -156,5 +170,5 @@ npm run lint
 
 - Payment processing is not implemented
 - Product images and richer metadata are still minimal
-- Order history currently uses `:userId` in the route instead of deriving it fully on the backend
+- Facebook login can require extra app setup and permissions before email access works reliably
 - This project is intended for learning and iteration, not production use as-is

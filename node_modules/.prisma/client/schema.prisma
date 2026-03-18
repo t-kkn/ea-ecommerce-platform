@@ -8,10 +8,12 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
+  id         String   @id @default(uuid())
+  email      String   @unique
+  password   String?
+  googleId   String?  @unique
+  facebookId String?  @unique
+  createdAt  DateTime @default(now())
 
   licenses License[]
   orders   Order[]

@@ -11,10 +11,19 @@ export default function RegisterPage() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
   
-    async function handleRegister(e: any) {
+  async function handleRegister(e: any) {
   
       // Prevent page reload when form is submitted
       e.preventDefault()
+
+      const normalizedEmail = email.trim().toLowerCase()
+
+      if (!normalizedEmail || !password) {
+        alert("Email and password are required")
+        return
+      }
+
+      try {
   
       // Send POST request to the register API
       const res = await fetch(
@@ -25,7 +34,7 @@ export default function RegisterPage() {
             "Content-Type": "application/json" // Tell server we send JSON
           },
           body: JSON.stringify({
-            email,
+            email: normalizedEmail,
             password
           })
         }
@@ -38,6 +47,10 @@ export default function RegisterPage() {
         router.push("/login")
       } else {
         alert(data.error)
+      }
+
+      } catch (_error) {
+        alert("Cannot connect to backend API. Please check if server is running on port 5001.")
       }
   
     }
