@@ -141,7 +141,7 @@ export default function LoginPage() {
             className="w-full border p-3 mb-4 text-black"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-          />
+          ></input>
   
           <input
             type="password"
@@ -149,7 +149,7 @@ export default function LoginPage() {
             className="w-full border p-3 mb-4 text-black"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          />
+          ></input>
   
           <button
             className="w-full bg-blue-600 text-white p-3 rounded">
